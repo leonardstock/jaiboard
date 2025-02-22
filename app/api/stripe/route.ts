@@ -13,18 +13,18 @@ export async function POST(req: NextRequest) {
         if (jobData.featured) {
             lineItems = [
                 {
-                    price: "price_1QvDoDF2dPz4IehQFUfDd7Bn",
+                    price: process.env.NEXT_PUBLIC_PRICE_JOB_POST_ID,
                     quantity: 1,
                 },
                 {
-                    price: "price_1QvDoTF2dPz4IehQi2MUIbh4",
+                    price: process.env.NEXT_PUBLIC_PRICE_JOB_POST_FEATURED_ID,
                     quantity: 1,
                 },
             ];
         } else {
             lineItems = [
                 {
-                    price: "price_1QvDoDF2dPz4IehQFUfDd7Bn",
+                    price: process.env.NEXT_PUBLIC_PRICE_JOB_POST_ID,
                     quantity: 1,
                 },
             ];
