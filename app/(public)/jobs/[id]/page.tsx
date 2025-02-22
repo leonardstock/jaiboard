@@ -8,7 +8,7 @@ interface GetJobResponse {
     job: Job;
 }
 
-const JobPage = async ({ params }: { params: { id: string } }) => {
+const JobPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     const id = (await params).id;
 
     const client = getApolloClient();
@@ -20,7 +20,7 @@ const JobPage = async ({ params }: { params: { id: string } }) => {
     if (error) return <div>Error loading job: {error.message}</div>;
     const job = data?.job;
 
-    if (!job) return <div>No job found for ID {params.id}</div>;
+    if (!job) return <div>No job found for ID {id}</div>;
 
     // Format date
     const formattedDate = new Date(job.time).toLocaleDateString("en-US", {
