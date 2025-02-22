@@ -38,6 +38,8 @@ const transformJob = (job: any): Job => {
         applicationProcess: job.application_process,
         contactEmail: job.contact_email,
         featured: job.featured,
+        status: job.status,
+        submissionId: job.submission_id,
     };
 };
 
@@ -63,6 +65,8 @@ const transformInput = (input: JobInput) => ({
     application_process: input.applicationProcess,
     contact_email: input.contactEmail,
     featured: input.featured,
+    status: input.status,
+    submission_id: "",
 });
 
 export const resolvers = {
@@ -71,6 +75,7 @@ export const resolvers = {
             const { data, error } = await supabase
                 .from("jobs")
                 .select("*")
+                .order("featured", { ascending: false })
                 .order("created_at", { ascending: false });
 
             if (error) throw new Error(error.message);
@@ -119,8 +124,12 @@ export const resolvers = {
         },
     },
     Mutation: {
-        createJob: async (_: any, { input }: { input: Job }) => {
+        createJob: async (
+            _: any,
+            { input, submissionId }: { input: JobInput; submissionId: string }
+        ) => {
             const supabaseInput = transformInput(input);
+            supabaseInput.submission_id = submissionId;
             const { data, error } = await supabase
                 .from("jobs")
                 .insert([supabaseInput])
@@ -130,6 +139,18 @@ export const resolvers = {
             if (error) throw new Error(error.message);
 
             console.log(transformJob(data));
+            return transformJob(data);
+        },
+        updateJobStatus: async (
+            _: any,
+            { submissionId, status }: { submissionId: string; status: string }
+        ) => {
+            const { data, error } = await supabase
+                .from("jobs")
+                .update({ status })
+                .eq("submission_id", submissionId);
+
+            if (error) throw new Error(error.message);
             return transformJob(data);
         },
     },

@@ -29,12 +29,16 @@ export const typeDefs = `#graphql
         applicationProcess: String
         contactEmail: String
         featured: Boolean!
+        status: String!
+        submissionId: String!
     }
 
     type Mutation {
         saveJob(jobId: ID!, userId: ID!): Boolean
         applyForJob(jobId: ID!, userId: ID!, resumeUrl: String!): Boolean
-        createJob(input: JobInput!): Job
+        createJob(input: JobInput!, submissionId: String!): Job
+        updateJob(jobId: ID!, input: JobInput!): Job
+        updateJobStatus(submissionId: String!, status: String!): Job
     }
 
     input JobInput {
@@ -58,6 +62,7 @@ export const typeDefs = `#graphql
         applicationProcess: String
         contactEmail: String
         featured: Boolean
+        status: String!
     }
 
 `;

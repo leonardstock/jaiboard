@@ -1,22 +1,21 @@
 "use client";
 
 import { ChangeEvent, FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-// import { getApolloClient } from "@/graphql/apollo-client";
-// import { CREATE_NEW_JOB } from "@/graphql/queries";
-// import { CreateJobMutation } from "@/graphql/generated";
+import { getApolloClient } from "@/graphql/apollo-client";
+import { CREATE_NEW_JOB } from "@/graphql/queries";
+import { CreateJobMutation } from "@/graphql/generated";
+import { v4 } from "uuid";
+import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
 
-const paymentLinks = {
-    // TODO change to live links
-    // normal: "https://buy.stripe.com/bIY8A02FU6Wm3fO4gh",
-    // featured: "https://buy.stripe.com/7sI17y2FU2G67w4aEG",
-    normal: "https://buy.stripe.com/test_6oE6q4bx75YjeAw9AC",
-    featured: "https://buy.stripe.com/test_28odSwat39av1NK7sv",
+const apolloClient = getApolloClient();
+
+const generateRandomId = () => {
+    return v4();
 };
 
 export default function PostJobPage() {
-    const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
@@ -38,8 +37,8 @@ export default function PostJobPage() {
         applicationProcess: "",
         contactEmail: "",
         featured: false,
+        status: "PENDING",
     });
-    // const apolloClient = getApolloClient();
 
     const employmentTypes = [
         "Full-time",
@@ -107,31 +106,27 @@ export default function PostJobPage() {
         };
 
         try {
-            // This is where you would integrate with your GraphQL mutation
-            // Example: await createJobMutation({ variables: { input: processedData } });
-            console.log("Submitting job data:", processedData);
+            const submissionId = generateRandomId();
 
-            if (formData.featured) {
-                router.push(paymentLinks.featured);
-            } else {
-                router.push(paymentLinks.normal);
+            const { errors } = await apolloClient.mutate<CreateJobMutation>({
+                mutation: CREATE_NEW_JOB,
+                variables: { input: processedData, submissionId },
+            });
+
+            if (errors) {
+                console.error("Error posting job:", errors);
             }
-            // const { data, errors } =
-            //     await apolloClient.mutate<CreateJobMutation>({
-            //         mutation: CREATE_NEW_JOB,
-            //         variables: { input: processedData },
-            //     });
 
-            // if (errors) {
-            //     console.error("Error posting job:", errors);
-            // }
-            // console.log(data);
+            const response = await axios.post("/api/stripe", {
+                featured: formData.featured,
+                submission_id: submissionId,
+            });
 
-            // Simulate API call
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-
-            // Redirect to home page after successful submission
-            router.push("/");
+            const { sessionId } = await response.data;
+            const stripe = await loadStripe(
+                process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+            );
+            await stripe?.redirectToCheckout({ sessionId });
         } catch (error) {
             console.error("Error posting job:", error);
             alert("Failed to post job. Please try again.");
@@ -419,9 +414,11 @@ export default function PostJobPage() {
                                     htmlFor='applicationDeadline'
                                     className='block text-sm font-medium text-gray-700'>
                                     Application Deadline
+                                    <span className='text-red-500'>*</span>
                                 </label>
                                 <input
                                     type='date'
+                                    required
                                     id='applicationDeadline'
                                     name='applicationDeadline'
                                     value={formData.applicationDeadline}

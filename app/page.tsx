@@ -103,6 +103,7 @@ export default function Home() {
                             image={data.image}
                             tags={data.tags}
                             time={data.time}
+                            featured={data.featured}
                         />
                     );
                 })}

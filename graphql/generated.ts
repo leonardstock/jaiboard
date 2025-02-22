@@ -33,6 +33,8 @@ export type Job = {
   remote: Maybe<Scalars['Boolean']['output']>;
   requirements: Maybe<Array<Scalars['String']['output']>>;
   salaryRange: Maybe<Scalars['String']['output']>;
+  status: Scalars['String']['output'];
+  submissionId: Scalars['String']['output'];
   tags: Array<Scalars['String']['output']>;
   time: Scalars['String']['output'];
   title: Scalars['String']['output'];
@@ -56,6 +58,7 @@ export type JobInput = {
   remote: InputMaybe<Scalars['Boolean']['input']>;
   requirements: InputMaybe<Array<Scalars['String']['input']>>;
   salaryRange: InputMaybe<Scalars['String']['input']>;
+  status: Scalars['String']['input'];
   tags: Array<Scalars['String']['input']>;
   time: Scalars['String']['input'];
   title: Scalars['String']['input'];
@@ -67,6 +70,8 @@ export type Mutation = {
   applyForJob: Maybe<Scalars['Boolean']['output']>;
   createJob: Maybe<Job>;
   saveJob: Maybe<Scalars['Boolean']['output']>;
+  updateJob: Maybe<Job>;
+  updateJobStatus: Maybe<Job>;
 };
 
 
@@ -79,12 +84,25 @@ export type MutationApplyForJobArgs = {
 
 export type MutationCreateJobArgs = {
   input: JobInput;
+  submissionId: Scalars['String']['input'];
 };
 
 
 export type MutationSaveJobArgs = {
   jobId: Scalars['ID']['input'];
   userId: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateJobArgs = {
+  input: JobInput;
+  jobId: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateJobStatusArgs = {
+  status: Scalars['String']['input'];
+  submissionId: Scalars['String']['input'];
 };
 
 export type Query = {
@@ -126,11 +144,20 @@ export type GetJobQuery = { __typename?: 'Query', job: { __typename?: 'Job', id:
 export type GetAllJobsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllJobsQuery = { __typename?: 'Query', jobs: Array<{ __typename?: 'Job', id: string, title: string, company: string, tags: Array<string>, location: string, time: string, employmentType: string }> };
+export type GetAllJobsQuery = { __typename?: 'Query', jobs: Array<{ __typename?: 'Job', id: string, title: string, company: string, tags: Array<string>, location: string, time: string, employmentType: string, featured: boolean }> };
 
 export type CreateJobMutationVariables = Exact<{
   input: JobInput;
+  submissionId: Scalars['String']['input'];
 }>;
 
 
 export type CreateJobMutation = { __typename?: 'Mutation', createJob: { __typename?: 'Job', id: string } | null };
+
+export type UpdateJobStatusMutationVariables = Exact<{
+  submissionId: Scalars['String']['input'];
+  status: Scalars['String']['input'];
+}>;
+
+
+export type UpdateJobStatusMutation = { __typename?: 'Mutation', updateJobStatus: { __typename?: 'Job', id: string } | null };
