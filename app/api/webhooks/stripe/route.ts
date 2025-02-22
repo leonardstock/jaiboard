@@ -19,8 +19,8 @@ export async function POST(req: Request) {
         event = stripe.webhooks.constructEvent(
             body,
             sig,
-            "whsec_b052a201b08d7034feb4091b713a754a1f6c19382be07dc6d399066081508c53"
-            // process.env.STRIPE_WEBHOOK_SECRET!
+            // "whsec_b052a201b08d7034feb4091b713a754a1f6c19382be07dc6d399066081508c53"
+            process.env.STRIPE_WEBHOOK_SECRET!
         );
     } catch (err: any) {
         return NextResponse.json(

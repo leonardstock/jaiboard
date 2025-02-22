@@ -12,5 +12,13 @@ export default function PaymentSuccess() {
         }, 2000);
     }, [router]);
 
-    return <div>Payment successful! Redirecting...</div>;
+    return (
+        <div className='min-h-screen bg-white'>
+            <div className='max-w-7xl mx-auto'>
+                <div className='text-center w-full mt-10'>
+                    Payment successful! Redirecting...
+                </div>
+            </div>
+        </div>
+    );
 }

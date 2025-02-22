@@ -47,7 +47,7 @@ const ListElement = ({
     return (
         <Link
             className={`w-full flex gap-2 rounded-lg border-2 border-gray-200 p-4 hover:border-gray-400 transition-all duration-300 ease-in-out p-6 shadow-md ${
-                featured && "border-indigo-600"
+                featured && "border-gradient"
             }`}
             href={`/jobs/${id}`}>
             <div className='flex gap-5 items-center w-full'>
