@@ -8,6 +8,7 @@ import Link from "next/link";
 // import { CreateJobMutation } from "@/graphql/generated";
 
 const paymentLinks = {
+    // TODO change to live links
     // normal: "https://buy.stripe.com/bIY8A02FU6Wm3fO4gh",
     // featured: "https://buy.stripe.com/7sI17y2FU2G67w4aEG",
     normal: "https://buy.stripe.com/test_6oE6q4bx75YjeAw9AC",
