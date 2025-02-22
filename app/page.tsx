@@ -93,19 +93,21 @@ export default function Home() {
                     </div>
                 )}
                 {jobs.map((data: Job) => {
-                    return (
-                        <ListElement
-                            key={data.id}
-                            id={data.id}
-                            title={data.title}
-                            company={data.company}
-                            location={data.location}
-                            image={data.image}
-                            tags={data.tags}
-                            time={data.time}
-                            featured={data.featured}
-                        />
-                    );
+                    if (data.status === "ACTIVE") {
+                        return (
+                            <ListElement
+                                key={data.id}
+                                id={data.id}
+                                title={data.title}
+                                company={data.company}
+                                location={data.location}
+                                image={data.image}
+                                tags={data.tags}
+                                time={data.time}
+                                featured={data.featured}
+                            />
+                        );
+                    }
                 })}
             </div>
             <footer className='row-start-3 flex gap-6 flex-wrap items-center justify-center'></footer>

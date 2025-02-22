@@ -38,6 +38,7 @@ export const GET_ALL_JOBS = gql`
             time
             employmentType
             featured
+            status
         }
     }
 `;
