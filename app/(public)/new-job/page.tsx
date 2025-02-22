@@ -413,7 +413,8 @@ export default function PostJobPage() {
                                 <label
                                     htmlFor='applicationDeadline'
                                     className='block text-sm font-medium text-gray-700'>
-                                    Application Deadline
+                                    Application Deadline (this is also when your
+                                    ad will expire)
                                     <span className='text-red-500'>*</span>
                                 </label>
                                 <input

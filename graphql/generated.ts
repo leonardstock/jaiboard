@@ -14,6 +14,13 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type FilterOption = {
+  __typename?: 'FilterOption';
+  companies: Array<Scalars['String']['output']>;
+  locations: Array<Scalars['String']['output']>;
+  tags: Array<Scalars['String']['output']>;
+};
+
 export type Job = {
   __typename?: 'Job';
   applicationDeadline: Maybe<Scalars['String']['output']>;
@@ -107,6 +114,7 @@ export type MutationUpdateJobStatusArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  getFilterOptions: FilterOption;
   job: Job;
   jobs: Array<Job>;
   jobsByCompany: Array<Job>;
@@ -131,7 +139,11 @@ export type QueryJobsByTagArgs = {
 
 
 export type QuerySearchJobsArgs = {
-  keyword: Scalars['String']['input'];
+  company: InputMaybe<Scalars['String']['input']>;
+  keyword: InputMaybe<Scalars['String']['input']>;
+  location: InputMaybe<Scalars['String']['input']>;
+  tags: InputMaybe<Array<Scalars['String']['input']>>;
+  timePosted: InputMaybe<Scalars['String']['input']>;
 };
 
 export type GetJobQueryVariables = Exact<{
@@ -144,7 +156,18 @@ export type GetJobQuery = { __typename?: 'Query', job: { __typename?: 'Job', id:
 export type GetAllJobsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllJobsQuery = { __typename?: 'Query', jobs: Array<{ __typename?: 'Job', id: string, title: string, company: string, tags: Array<string>, location: string, time: string, employmentType: string, featured: boolean }> };
+export type GetAllJobsQuery = { __typename?: 'Query', jobs: Array<{ __typename?: 'Job', id: string, title: string, company: string, tags: Array<string>, location: string, time: string, employmentType: string, featured: boolean, status: string }> };
+
+export type SearchJobsQueryVariables = Exact<{
+  keyword: InputMaybe<Scalars['String']['input']>;
+  location: InputMaybe<Scalars['String']['input']>;
+  company: InputMaybe<Scalars['String']['input']>;
+  timePosted: InputMaybe<Scalars['String']['input']>;
+  tags: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+}>;
+
+
+export type SearchJobsQuery = { __typename?: 'Query', searchJobs: Array<{ __typename?: 'Job', id: string, title: string, company: string, tags: Array<string>, location: string, time: string, employmentType: string, featured: boolean, status: string }> };
 
 export type CreateJobMutationVariables = Exact<{
   input: JobInput;
@@ -161,3 +184,8 @@ export type UpdateJobStatusMutationVariables = Exact<{
 
 
 export type UpdateJobStatusMutation = { __typename?: 'Mutation', updateJobStatus: { __typename?: 'Job', id: string } | null };
+
+export type GetFilterOptionsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetFilterOptionsQuery = { __typename?: 'Query', getFilterOptions: { __typename?: 'FilterOption', locations: Array<string>, companies: Array<string>, tags: Array<string> } };

@@ -113,14 +113,91 @@ export const resolvers = {
             return data?.map(transformJob) || [];
         },
 
-        searchJobs: async (_: any, { keyword }: { keyword: string }) => {
-            const { data, error } = await supabase
+        searchJobs: async (
+            _: any,
+            {
+                keyword = "",
+                location = "",
+                company = "",
+                timePosted = "",
+                tags = [] as string[],
+            }
+        ) => {
+            let query = supabase
                 .from("jobs")
                 .select("*")
-                .or(`title.ilike.%${keyword}%, description.ilike.%${keyword}%`);
+                .eq("status", "ACTIVE");
 
+            if (keyword.trim()) {
+                query = query.or(
+                    `title.ilike.%${keyword}%, description.ilike.%${keyword}%, company.ilike.%${keyword}%, location.ilike.%${keyword}%`
+                );
+            }
+
+            if (location && location !== "All") {
+                query = query.ilike("location", `%${location}%`);
+            }
+
+            if (company && company !== "All") {
+                query = query.ilike("company", `%${company}%`);
+            }
+
+            if (timePosted && timePosted !== "All") {
+                const timeFilter = new Date();
+                if (timePosted === "Last 24 hours") {
+                    timeFilter.setDate(timeFilter.getDate() - 1);
+                    query = query.gte("time", timeFilter.toISOString());
+                }
+                if (timePosted === "Last week") {
+                    timeFilter.setDate(timeFilter.getDate() - 7);
+                    query = query.gte("time", timeFilter.toISOString());
+                }
+            }
+
+            if (tags.length > 0 && !tags.includes("All")) {
+                query = query.contains("tags", tags);
+            }
+
+            const { data, error } = await query;
             if (error) throw new Error(error.message);
             return data?.map(transformJob) || [];
+        },
+
+        getFilterOptions: async () => {
+            const { data: locationsData } = await supabase
+                .from("jobs")
+                .select("location")
+                .not("location", "is", null)
+                .eq("status", "ACTIVE");
+
+            const { data: companiesData } = await supabase
+                .from("jobs")
+                .select("company")
+                .not("company", "is", null)
+                .eq("status", "ACTIVE");
+
+            const { data: tagsData } = await supabase
+                .from("jobs")
+                .select("tags")
+                .not("tags", "is", null)
+                .eq("status", "ACTIVE");
+
+            const locations = [
+                ...new Set(locationsData?.map((item) => item.location)),
+            ];
+            const companies = [
+                ...new Set(companiesData?.map((item) => item.company)),
+            ];
+            const allTags = tagsData?.reduce((acc: string[], item) => {
+                return acc.concat(item.tags);
+            }, []);
+            const tags = [...new Set(allTags)];
+
+            return {
+                locations: ["All", ...locations].sort(),
+                companies: ["All", ...companies].sort(),
+                tags: ["All", ...tags].sort(),
+            };
         },
     },
     Mutation: {

@@ -46,8 +46,8 @@ const ListElement = ({
 }: ListElementProps) => {
     return (
         <Link
-            className={`w-full flex gap-2 rounded-lg border-2 border-gray-200 p-4 hover:border-gray-400 transition-all duration-300 ease-in-out p-6 shadow-md ${
-                featured && "border-gradient"
+            className={`w-full flex gap-2 rounded-lg border-2 border-gray-200 p-4 transition-all duration-300 ease-in-out p-6 shadow-md hover:scale-105 ${
+                featured ? "border-gradient" : "hover:border-gray-400"
             }`}
             href={`/jobs/${id}`}>
             <div className='flex gap-5 items-center w-full'>
