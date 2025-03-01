@@ -549,7 +549,7 @@ export default function PostJobPage() {
                                 <label
                                     htmlFor='featured'
                                     className='ml-2 block text-sm text-gray-700'>
-                                    Feature this job posting (+25$)
+                                    Feature this job posting (+5$)
                                 </label>
                             </div>
                         </div>

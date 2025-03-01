@@ -108,9 +108,11 @@ export default function Home() {
                         <div className='text-center'>
                             <h1 className='text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl'>
                                 <span className='block'>Welcome to</span>
-                                the best way to find your next job in AI
+                                another way to find your next job in AI
                             </h1>
-                            <p className='mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl'></p>
+                            <p className='mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl'>
+                                Why not look here after all?
+                            </p>
                         </div>
                     </main>
                 </div>
