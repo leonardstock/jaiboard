@@ -46,7 +46,7 @@ export default function TopBar() {
                     <Link
                         href={"/new-job"}
                         className={`flex flex-row gap-4 background-gradient text-white items-center lg:px-6 px-3 py-3 rounded-lg w-fit cursor-pointer`}>
-                        Post Job - 99$
+                        Post Job - 10$
                     </Link>
                 </div>
             </nav>
