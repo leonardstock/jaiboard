@@ -8,11 +8,16 @@ const Footer = () => {
                 <p className='text-gray-500'>
                     © 2025 Shousai Ltd. All rights reserved.
                 </p>
-                <div>
+                <div className='flex flex-col md:flex-row gap-2 items-center'>
                     <Link
                         href='/terms'
                         className='text-gray-500 hover:text-gray-900'>
                         Terms
+                    </Link>
+                    <Link
+                        href='/privacy'
+                        className='text-gray-500 hover:text-gray-900'>
+                        Privacy
                     </Link>
                 </div>
             </div>
