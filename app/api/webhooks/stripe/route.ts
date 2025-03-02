@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { createLinkedInPost, LinkedInPostProps } from "@/app/actions";
 import { getApolloClient } from "@/graphql/apollo-client";
 import { UpdateJobStatusMutation } from "@/graphql/generated";
 import { UPDATE_JOB_STATUS } from "@/graphql/queries";
@@ -46,7 +47,19 @@ export async function POST(req: Request) {
                     if (errors) {
                         console.error("Error updating job status:", errors);
                     }
-                    console.log(data);
+
+                    if (data?.updateJobStatus) {
+                        const jobData: LinkedInPostProps = {
+                            company: data?.updateJobStatus?.company,
+                            title: data?.updateJobStatus?.title,
+                            location: data?.updateJobStatus?.location,
+                            remote: data?.updateJobStatus?.remote ?? false,
+                            featured: data?.updateJobStatus?.featured,
+                            id: data?.updateJobStatus?.id,
+                        };
+
+                        createLinkedInPost(jobData);
+                    }
                 }
 
                 break;
@@ -54,6 +67,7 @@ export async function POST(req: Request) {
             // Unexpected event type
         }
     } catch (err: any) {
+        console.dir(err, { depth: Infinity });
         return NextResponse.json(
             { error: `Webhook Error: ${err.message}` },
             { status: 400 }

@@ -83,6 +83,11 @@ export const UPDATE_JOB_STATUS = gql`
     mutation UpdateJobStatus($submissionId: String!, $status: String!) {
         updateJobStatus(submissionId: $submissionId, status: $status) {
             id
+            company
+            title
+            location
+            remote
+            featured
         }
     }
 `;

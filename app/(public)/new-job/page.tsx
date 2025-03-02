@@ -549,8 +549,22 @@ export default function PostJobPage() {
                                 <label
                                     htmlFor='featured'
                                     className='ml-2 block text-sm text-gray-700'>
-                                    Feature this job posting (+5$)
+                                    Feature this job posting (+5$){" "}
+                                    <span className='text-sm'>*</span>
                                 </label>
+                            </div>
+                            <div className='text-sm text-gray-500'>
+                                <span className='text-sm'>*</span> Your posting
+                                will be displayed at the top of the list and
+                                with a colorful ring around it. Additionally, it
+                                will be highlighted that you are hiring urgently
+                                on the LinkedIn post which is automatically
+                                created for every job on our page.{" "}
+                                <Link
+                                    href='https://www.linkedin.com/company/jaiboard/posts'
+                                    className='underline'>
+                                    Have a look!
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -566,7 +580,7 @@ export default function PostJobPage() {
                             type='submit'
                             disabled={loading}
                             className='px-6 py-3 bg-indigo-600 text-white font-medium rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed'>
-                            {loading ? "Posting..." : "Post Job"}
+                            {loading ? "Loading..." : "Post Job"}
                         </button>
                     </div>
                 </form>

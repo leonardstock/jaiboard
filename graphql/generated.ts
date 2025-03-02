@@ -183,7 +183,7 @@ export type UpdateJobStatusMutationVariables = Exact<{
 }>;
 
 
-export type UpdateJobStatusMutation = { __typename?: 'Mutation', updateJobStatus: { __typename?: 'Job', id: string } | null };
+export type UpdateJobStatusMutation = { __typename?: 'Mutation', updateJobStatus: { __typename?: 'Job', id: string, company: string, title: string, location: string, remote: boolean | null, featured: boolean } | null };
 
 export type GetFilterOptionsQueryVariables = Exact<{ [key: string]: never; }>;
 

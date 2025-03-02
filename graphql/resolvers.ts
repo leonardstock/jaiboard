@@ -14,7 +14,7 @@ const transformJob = (job: any): Job => {
         job["employment_type"] ||
         job.employmentType ||
         job.employmenttype ||
-        "Unspecified";
+        "Full-time";
 
     return {
         id: job.id,
@@ -215,7 +215,6 @@ export const resolvers = {
 
             if (error) throw new Error(error.message);
 
-            console.log(transformJob(data));
             return transformJob(data);
         },
         updateJobStatus: async (
@@ -225,10 +224,12 @@ export const resolvers = {
             const { data, error } = await supabase
                 .from("jobs")
                 .update({ status })
-                .eq("submission_id", submissionId);
+                .eq("submission_id", submissionId)
+                .select();
 
             if (error) throw new Error(error.message);
-            return transformJob(data);
+
+            return transformJob(data[0]);
         },
     },
 };
