@@ -36,7 +36,7 @@ export async function createLinkedInPost({
 
                     Apply now: https://jaiboard.com/jobs/${id}
 
-                    #hiring #ai #machinelearning #data #jobsearch #jobboard
+                    #hiring #ai #machinelearning #data #jobsearch #jobboard #jobs #jaiboard
                     `,
                 },
                 shareMediaCategory: "NONE",
