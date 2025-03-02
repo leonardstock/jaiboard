@@ -67,6 +67,7 @@ export const SEARCH_JOBS = gql`
             employmentType
             featured
             status
+            salaryRange
         }
     }
 `;
@@ -88,6 +89,8 @@ export const UPDATE_JOB_STATUS = gql`
             location
             remote
             featured
+            salaryRange
+            tags
         }
     }
 `;

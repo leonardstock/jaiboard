@@ -9,6 +9,8 @@ export type LinkedInPostProps = {
     remote: boolean;
     featured: boolean;
     id: string;
+    salaryRange: string | null;
+    tags: string[];
 };
 
 export async function createLinkedInPost({
@@ -17,9 +19,17 @@ export async function createLinkedInPost({
     location,
     remote,
     featured,
+    salaryRange,
     id,
+    tags,
 }: LinkedInPostProps) {
     const accessToken = process.env.LINKEDIN_ACCESS_TOKEN!;
+
+    console.log(tags);
+
+    const customTags = tags.map((tag) => `#${tag.toLowerCase()}`);
+
+    console.log(customTags);
 
     const postData = {
         author: "urn:li:organization:106628653",
@@ -31,12 +41,18 @@ export async function createLinkedInPost({
 
                     ${company} is hiring for ${title} in ${location}${
                         remote ? " or remote" : ""
+                    }${
+                        salaryRange
+                            ? ` with a salary range of ${salaryRange}`
+                            : ""
                     }
                     ${featured ? "They are hiring urgently! 🔥🔥🔥" : ""}
 
                     Apply now: https://jaiboard.com/jobs/${id}
 
-                    #hiring #ai #machinelearning #data #jobsearch #jobboard #jobs #jaiboard
+                    #hiring #ai #machinelearning #data #jobsearch #jobboard #jobs #jaiboard ${customTags.join(
+                        " "
+                    )}
                     `,
                 },
                 shareMediaCategory: "NONE",

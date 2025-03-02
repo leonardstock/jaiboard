@@ -56,6 +56,8 @@ export async function POST(req: Request) {
                             remote: data?.updateJobStatus?.remote ?? false,
                             featured: data?.updateJobStatus?.featured,
                             id: data?.updateJobStatus?.id,
+                            salaryRange: data?.updateJobStatus?.salaryRange,
+                            tags: data?.updateJobStatus?.tags,
                         };
 
                         createLinkedInPost(jobData);
