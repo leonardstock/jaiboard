@@ -126,7 +126,9 @@ export const resolvers = {
             let query = supabase
                 .from("jobs")
                 .select("*")
-                .eq("status", "ACTIVE");
+                .eq("status", "ACTIVE")
+                .order("featured", { ascending: false })
+                .order("created_at", { ascending: false });
 
             if (keyword.trim()) {
                 query = query.or(

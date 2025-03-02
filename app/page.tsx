@@ -190,6 +190,7 @@ export default function Home() {
                                     tags={data.tags}
                                     time={data.time}
                                     featured={data.featured}
+                                    salaryRange={data.salaryRange}
                                 />
                             );
                         }

@@ -1,9 +1,9 @@
 "use client";
 
-import { MapPin } from "lucide-react";
+import { Clock, MapPin } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { formatDistanceToNow, parseISO } from "date-fns";
+import { redirect } from "next/navigation";
 
 type ListElementProps = {
     id: string;
@@ -14,11 +14,17 @@ type ListElementProps = {
     tags?: string[];
     time: string;
     featured: boolean;
+    salaryRange: string | null;
 };
 
 const StyledTag = ({ text }: { text: string }) => {
     return (
-        <div className='bg-gray-200 text-black rounded-lg px-3 py-1 text-sm'>
+        <div
+            className='bg-gray-200 text-black rounded-lg px-3 py-1 text-sm hover:bg-gray-300'
+            onClick={(e) => {
+                e.stopPropagation();
+                console.log("test");
+            }}>
             {text}
         </div>
     );
@@ -43,13 +49,16 @@ const ListElement = ({
     tags,
     time,
     featured,
+    salaryRange,
 }: ListElementProps) => {
     return (
-        <Link
-            className={`w-full flex gap-2 rounded-lg border-2 border-gray-200 p-4 transition-all duration-300 ease-in-out p-6 shadow-md hover:scale-105 ${
+        <div
+            className={`w-full flex gap-2 rounded-lg border-2 border-gray-200 p-4 transition-all duration-300 ease-in-out p-6 shadow-md hover:scale-105 cursor-pointer ${
                 featured ? "border-gradient" : "hover:border-gray-400"
             }`}
-            href={`/jobs/${id}`}>
+            onClick={() => {
+                redirect(`/jobs/${id}`);
+            }}>
             <div className='flex gap-5 items-center w-full'>
                 {image && (
                     <Image
@@ -61,28 +70,33 @@ const ListElement = ({
                     />
                 )}
                 <div className='flex flex-col flex-1 gap-1'>
-                    <div className='flex flex-col md:flex-row justify-between md:items-center md:gap-0 gap-2'>
+                    <div className='flex flex-row justify-between md:items-center md:gap-0 gap-2'>
                         <div className='flex items-center gap-1 text-gray-500'>
-                            <div className='text-sm'>{company}</div>
-                            <div className='text-sm'>•</div>
-                            <div className='text-sm'>
-                                {relativeTimeFromDate(time)}
-                            </div>
+                            <div>{company}</div>
                         </div>
-                        <div className='flex gap-2'>
-                            {tags?.map((tag) => (
-                                <StyledTag key={tag} text={tag}></StyledTag>
-                            ))}
+                        <div className='flex items-center gap-1 text-sm text-gray-500'>
+                            <Clock className='h-4 w-4' />
+                            {relativeTimeFromDate(time)}
                         </div>
                     </div>
                     <div className='text-black text-xl font-bold'>{title}</div>
-                    <div className='flex items-center gap-1 text-gray-500'>
+                    {salaryRange && (
+                        <div className='text-gray-500 my-2 text-sm'>
+                            {salaryRange}
+                        </div>
+                    )}
+                    <div className='flex items-center gap-1 text-gray-500 my-2 text-sm'>
                         <MapPin className='h-5 w-5' />
                         <div className=''>{location}</div>
                     </div>
+                    <div className='flex gap-2'>
+                        {tags?.map((tag) => (
+                            <StyledTag key={tag} text={tag}></StyledTag>
+                        ))}
+                    </div>
                 </div>
             </div>
-        </Link>
+        </div>
     );
 };
 
