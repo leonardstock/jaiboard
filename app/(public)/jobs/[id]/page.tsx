@@ -84,11 +84,17 @@ const JobPage = async ({ params }: { params: Promise<{ id: string }> }) => {
                             </div>
 
                             <div className='mt-6 md:mt-0'>
-                                <Link
-                                    href={job.url}
-                                    className='w-full md:w-auto px-6 py-3 bg-indigo-600 text-white font-medium rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
-                                    Apply Now
-                                </Link>
+                                <div className='flex flex-col gap-4'>
+                                    <Link
+                                        href={job.url}
+                                        className='self-end w-full md:w-auto px-6 py-3 bg-indigo-600 text-white font-medium rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
+                                        Go to job site
+                                    </Link>
+                                    <span className='text-sm text-gray-500 '>
+                                        When you apply, please tell them that
+                                        you found this job here 😊
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </main>
