@@ -10,6 +10,18 @@
         rgba(253, 29, 29, 1) 60%,
         rgba(252, 176, 69, 1) 100%
     );
+
+    --animate-breathe: breathe 1s ease-in-out infinite;
+}
+
+@keyframes breathe {
+    0%,
+    100% {
+        scale: 105% 105%;
+    }
+    50% {
+        scale: 100% 100%;
+    }
 }
 
 /* @media (prefers-color-scheme: dark) {

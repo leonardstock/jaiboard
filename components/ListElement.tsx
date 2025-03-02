@@ -61,7 +61,7 @@ const ListElement = ({
                     />
                 )}
                 <div className='flex flex-col flex-1 gap-1'>
-                    <div className='flex flex-row justify-between items-center'>
+                    <div className='flex flex-col md:flex-row justify-between md:items-center md:gap-0 gap-2'>
                         <div className='flex items-center gap-1 text-gray-500'>
                             <div className='text-sm'>{company}</div>
                             <div className='text-sm'>•</div>

@@ -36,10 +36,6 @@ export async function POST(req: Request) {
                 const submissionId =
                     successUrl.searchParams.get("submission_id");
 
-                console.log(session);
-
-                console.log(successUrl);
-
                 if (submissionId) {
                     const { data, errors } =
                         await apolloClient.mutate<UpdateJobStatusMutation>({
