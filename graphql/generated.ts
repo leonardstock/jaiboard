@@ -167,7 +167,7 @@ export type SearchJobsQueryVariables = Exact<{
 }>;
 
 
-export type SearchJobsQuery = { __typename?: 'Query', searchJobs: Array<{ __typename?: 'Job', id: string, title: string, company: string, tags: Array<string>, location: string, time: string, employmentType: string, featured: boolean, status: string }> };
+export type SearchJobsQuery = { __typename?: 'Query', searchJobs: Array<{ __typename?: 'Job', id: string, title: string, company: string, tags: Array<string>, location: string, time: string, employmentType: string, featured: boolean, status: string, salaryRange: string | null }> };
 
 export type CreateJobMutationVariables = Exact<{
   input: JobInput;
@@ -183,7 +183,7 @@ export type UpdateJobStatusMutationVariables = Exact<{
 }>;
 
 
-export type UpdateJobStatusMutation = { __typename?: 'Mutation', updateJobStatus: { __typename?: 'Job', id: string, company: string, title: string, location: string, remote: boolean | null, featured: boolean } | null };
+export type UpdateJobStatusMutation = { __typename?: 'Mutation', updateJobStatus: { __typename?: 'Job', id: string, company: string, title: string, location: string, remote: boolean | null, featured: boolean, salaryRange: string | null, tags: Array<string> } | null };
 
 export type GetFilterOptionsQueryVariables = Exact<{ [key: string]: never; }>;
 

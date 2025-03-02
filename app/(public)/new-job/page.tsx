@@ -309,7 +309,9 @@ export default function PostJobPage() {
                                     Skills/Tags{" "}
                                     <span className='text-red-500'>*</span>{" "}
                                     <span className='text-xs text-gray-500'>
-                                        (comma separated)
+                                        (comma separated, these will be
+                                        individual hashtags on your LinkedIn
+                                        post)
                                     </span>
                                 </label>
                                 <input
