@@ -33,7 +33,7 @@ const JobPage = async ({ params }: { params: Promise<{ id: string }> }) => {
         <div className='min-h-screen bg-white'>
             <div className='max-w-7xl mx-auto'>
                 {/* Header section */}
-                <div className='relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:pb-28 xl:pb-32'>
+                <div className='relative z-10 pb-8 bg-white'>
                     <main className='mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 xl:mt-25'>
                         <div className='flex items-center mb-6'>
                             <Link
@@ -130,11 +130,15 @@ const JobPage = async ({ params }: { params: Promise<{ id: string }> }) => {
                                     Requirements
                                 </h3>
                                 {job.requirements ? (
-                                    <div
-                                        dangerouslySetInnerHTML={{
-                                            __html: job.requirements,
-                                        }}
-                                    />
+                                    <ul>
+                                        {job.requirements.map((requirement) => {
+                                            return (
+                                                <li key={requirement}>
+                                                    &bull; {requirement}
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
                                 ) : (
                                     <p className='text-gray-600'>
                                         No specific requirements listed.
