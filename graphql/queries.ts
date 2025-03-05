@@ -64,6 +64,7 @@ export const SEARCH_JOBS = gql`
             tags
             location
             time
+            image
             employmentType
             featured
             status

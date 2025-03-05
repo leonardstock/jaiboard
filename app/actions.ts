@@ -25,11 +25,7 @@ export async function createLinkedInPost({
 }: LinkedInPostProps) {
     const accessToken = process.env.LINKEDIN_ACCESS_TOKEN!;
 
-    console.log(tags);
-
     const customTags = tags.map((tag) => `#${tag.toLowerCase()}`);
-
-    console.log(customTags);
 
     const postData = {
         author: "urn:li:organization:106628653",

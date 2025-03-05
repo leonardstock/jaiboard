@@ -23,7 +23,6 @@ const StyledTag = ({ text }: { text: string }) => {
             className='bg-gray-200 text-black rounded-lg px-3 py-1 text-sm hover:bg-gray-300'
             onClick={(e) => {
                 e.stopPropagation();
-                console.log("test");
             }}>
             {text}
         </div>
@@ -53,7 +52,7 @@ const ListElement = ({
 }: ListElementProps) => {
     return (
         <div
-            className={`w-full flex gap-2 rounded-lg border-2 border-gray-200 p-4 transition-all duration-300 ease-in-out p-6 shadow-md hover:scale-105 cursor-pointer ${
+            className={`w-full flex gap-2 rounded-lg border-2 border-gray-200 p-4 transition-all duration-300 ease-in-out p-6 shadow-md lg:hover:scale-105 cursor-pointer ${
                 featured ? "border-gradient" : "hover:border-gray-400"
             }`}
             onClick={() => {
